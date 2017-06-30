@@ -1,3 +1,3 @@
 <html>
-<H1 allign="center">It Works</H1>
+<H1 allign="center">IT Works</H1>
 </html>
