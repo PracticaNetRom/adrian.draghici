@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%
-	out.clear();
-%>
-<%
-	session.setAttribute("title", "Anunt Nou");
-%>
-<%@include file="header.jsp"%>
 <div id="new" align="center">
 	<form method="post">
 		<input name="comanda" type="hidden" value="addAnunt" />
@@ -96,4 +89,3 @@
 		document.getElementById('sendEmal').innerHTML = ' <form action="new.html"> <input name="comanda" type="hidden" value="sendConfCode" /> <input name="contactEmail" type="hidden" value="" /> <script> document.getElementById(\'contactEmail\').value = document.getElementById(\'requesterEmail\').value <\/script> <input type="submit" style="font-size: 10pt; color: black; background-color: Aquamarine;" value="Trimite Cod Confirmare pe Email"> </form> '
 	</script>
 </div>
-<%@include file="footer.jsp"%>
