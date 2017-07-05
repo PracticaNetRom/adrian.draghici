@@ -43,9 +43,12 @@ public class ShowAnnouncementsEngine {
 						}
 					}
 				}
+			}else{
+				pageNumber=1;
 			}
 			if (pageNumber == 1) {
-				announcements = AnnoucementFetcher.getAnnoucements();
+				AnnoucementFetcher annoucementFetcher=new AnnoucementFetcher();
+				announcements = annoucementFetcher.getAnnoucements();
 			}
 			if (announcements.length % 10 > 0) {
 				pages = announcements.length / 10 + 1;

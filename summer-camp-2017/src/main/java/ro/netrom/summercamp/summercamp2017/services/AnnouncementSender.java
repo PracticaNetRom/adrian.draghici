@@ -10,7 +10,7 @@ public class AnnouncementSender {
 		final String uri = "http://summercamp.api.stage03.netromsoftware.ro/api/announcement/save.do";
 		RestTemplate restTemplate = new RestTemplate();
 		Annoucement result = restTemplate.postForObject(uri, announcement,Annoucement.class);
-		System.out.println("data sent!: "+result);
+		System.out.println("data sent! API response: "+result);
 	}
 	
 }

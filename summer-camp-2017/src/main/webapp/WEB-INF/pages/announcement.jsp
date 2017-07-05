@@ -64,7 +64,10 @@
 						<td width=200>${announcement.ownerPhone}</td>
 					</tr>
 				</table>
-				<br /> <br />
+			</div>
+			<div>
+				<h3 align="center">Comentarii anunt</h3>
+				
 			</div>
 		</c:when>
 		<c:otherwise>

@@ -66,17 +66,12 @@ public class AddAnnoucementEngine {
 				model.addAttribute("requesterEmail", email);
 			}
 		}
-		if (phone == null) {
-			model.addAttribute("requesterPhoneError", "Numar telefon obligatoriu!");
+		if (phone != null && !Validators.isPhoneNumber(phone)) {
+			model.addAttribute("requesterPhoneError", "Numar telefon invalid!");
+			model.addAttribute("requesterPhone", "");
 			valid = false;
 		} else {
-			if (!Validators.isPhoneNumber(phone)) {
-				model.addAttribute("requesterPhoneError", "Numar telefon invalid!");
-				model.addAttribute("requesterPhone", "");
-				valid = false;
-			} else {
-				model.addAttribute("requesterPhone", phone);
-			}
+			model.addAttribute("requesterPhone", phone);
 		}
 		if (title == null) {
 			model.addAttribute("annoucementTitleError", "Titlu obligatoriu!");

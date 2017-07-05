@@ -45,13 +45,13 @@ public class AnnoucementFetcher {
 		return annoucements;
 	}
 
-	public static Annoucement[] getAnnoucements() {
+	public Annoucement[] getAnnoucements() {
 		final String uri = "http://summercamp.api.stage03.netromsoftware.ro/api/announcement/list.do";
 		RestTemplate restTemplate = new RestTemplate();
 		Annoucement[] result = restTemplate.getForObject(uri, Annoucement[].class);
-		System.out.println("data fetched!: " + result.length + " items");
+		System.out.println("announcements fetched!: " + result.length + " items");
 		result = getActiveAnnoucements(result);
-		System.out.println("data filtered!: " + result.length + " items");
+		System.out.println("announcements filtered!: " + result.length + " items");
 		return result;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Annoucement {
 
-	private int id;
+	private Integer id;
 	private String title;
 	private String content;
 	private String location;
@@ -42,13 +42,14 @@ public class Annoucement {
 		this.ownerPhone=ownerPhone;
 		this.categoryName=categoryName;
 		this.categoryDescription=categoryDescription;
+		this.content=content;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

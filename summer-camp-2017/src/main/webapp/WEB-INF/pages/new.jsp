@@ -79,6 +79,7 @@
 						<option value="Arta">Arta</option>
 						<option value="Auto">Auto</option>
 						<option value="Casa si Gradina">Casa si Gradina</option>
+						<option value="Cars">Cars</option>
 						<option value="Electronice">Electronice</option>
 						<option value="Imobiliare">Imobiliare</option>
 						<option value="Imbracaminte">Imbracaminte</option>

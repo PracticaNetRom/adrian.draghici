@@ -7,7 +7,7 @@
 		<c:when test="${!empty announcements}">
 			<h1 align="center">Anunturi</h1>
 			<h2 align="center">Pagina ${pageNr}</h2>
-			<c:set var="index" scope="session" value="-1" />
+			<c:set var="index" scope="session" value="${(pageNr-1)*10-1}" />
 			<c:forEach var="announcement" items="${announcements}"
 				varStatus="loop">
 				<c:set var="index" scope="session" value="${index+1}" />
