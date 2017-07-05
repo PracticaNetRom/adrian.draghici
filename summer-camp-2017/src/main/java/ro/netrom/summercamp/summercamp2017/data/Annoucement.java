@@ -1,9 +1,10 @@
 package ro.netrom.summercamp.summercamp2017.data;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Annoucement {
-	
+
 	private int id;
 	private String title;
 	private String content;
@@ -18,11 +19,29 @@ public class Annoucement {
 	private String ownerPhone;
 	private String categoryName;
 	private String categoryDescription;
-	
-	private int validity;
-	
+
+	private boolean available;
+
 	public Annoucement() {
-		
+
+	}
+
+	public Annoucement(String ownerFirstName, String ownerLastName, String ownerEmail, String ownerPhone, String title,
+			String location, int valability, String categoryName, String categoryDescription,
+			String confirmationCode, String content) {
+		this.title=title;
+		this.location=location;
+		this.confirmationCode=confirmationCode;
+		Calendar cal = Calendar.getInstance();
+		this.createDate=cal.getTime();
+		cal.add(Calendar.DATE, valability);
+		this.expireDate=cal.getTime();
+		this.ownerEmail=ownerEmail;
+		this.ownerFirstName=ownerFirstName;
+		this.ownerLastName=ownerLastName;
+		this.ownerPhone=ownerPhone;
+		this.categoryName=categoryName;
+		this.categoryDescription=categoryDescription;
 	}
 
 	public int getId() {
@@ -87,6 +106,8 @@ public class Annoucement {
 
 	public void setExpireDate(Date expireDate) {
 		this.expireDate = expireDate;
+		Calendar cal = Calendar.getInstance();
+		available = expireDate.after(cal.getTime());
 	}
 
 	public String getOwnerEmail() {
@@ -137,13 +158,8 @@ public class Annoucement {
 		this.categoryDescription = categoryDescription;
 	}
 
-	public int getValidity() {
-		return validity;
+	public boolean isAvailable() {
+		return available;
 	}
 
-	public void setValidity(int validity) {
-		this.validity = validity;
-	}
-	
-	
 }
