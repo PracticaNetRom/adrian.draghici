@@ -80,7 +80,7 @@
 																<td colspan="2" width=700 align="left"
 																	style="font-size: 15pt; color: black;" valign="middle">Comentariu*:
 																	<textarea name="commentContent" rows="5" cols="97">${commentContent}</textarea><span
-																	class="error" style="color: red; white-space: nowrap;"><b>${annoucementContentError}</b></span>
+																	class="error" style="color: red; white-space: nowrap;"><b>${commentContentError}</b></span>
 																</td>
 															</tr>
 															<tr>
@@ -161,4 +161,26 @@
 			}
 		}
 	}
+	
+	function submitComment(targetId){
+		var announcementId=document.getElementById('announcementId'+targetId);
+		var parentId=document.getElementById('parentId'+targetId);
+		var commerName=document.getElementById('commerName'+targetId);
+		var commentContent=document.getElementById('commentContent'+targetId);
+		
+		$.ajax({
+			url : 'newComment.html',
+			type : 'POST',
+			data : {
+				announcementId : announcementId,
+				parentId: parentId,
+				commerName : commerName,
+				commentContent: commentContent
+			},
+			success : function(result) {
+				commerName.html(result);
+			}
+		});
+	}
+	
 </script>

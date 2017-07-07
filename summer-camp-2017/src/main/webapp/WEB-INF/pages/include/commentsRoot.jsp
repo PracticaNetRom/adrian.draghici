@@ -76,7 +76,8 @@
 																				valign="middle"
 																				style="font-size: 20pt; color: black; background-color: Khaki;">
 																				Numele dumneavoastra*: <input type="text"
-																				name="commerName" value="${commerName}" size="30" /><span
+																				id="commerName${announcement.id}"
+																				value="${commerName}" size="30" /><span
 																				class="error"
 																				style="color: red; white-space: nowrap;"><b>${commerNameNameError}</b></span>
 																			</td>
@@ -85,17 +86,22 @@
 																			<td colspan="2" width=700 align="left"
 																				style="font-size: 15pt; color: black;"
 																				valign="middle">Comentariu*: <textarea
-																					name="commentContent" rows="5" cols="97">${commentContent}</textarea><span
+																					id="commentContent${announcement.id}" rows="5"
+																					cols="97">${commentContent}</textarea><span
 																				class="error"
-																				style="color: red; white-space: nowrap;"><b>${annoucementContentError}</b></span>
+																				style="color: red; white-space: nowrap;"><b>${commentContentError}</b></span>
 																			</td>
 																		</tr>
 																		<tr>
-																			<td width=500 align="center">
+																			<td width=500 align="center"><input
+																				id="announcementId${announcement.id}" type="hidden"
+																				value="${announcement.id}" /> <input
+																				id="parentId${announcement.id}" type="hidden"
+																				value="${comment.id}" />
 																				<button type="button"
+																					onclick="submitComment(${comment.id});"
 																					style="font-size: 15pt; color: DarkMagenta; background-color: Chartreuse; border-collapse: collapse; border: 1px solid green; width: 500px">&#10009;
-																					Publicati</button>
-																			</td>
+																					Publicati</button></td>
 																			<td width=200 align="center">
 																				<button type="button"
 																					onclick="toggleCommentForm(${comment.id});"
