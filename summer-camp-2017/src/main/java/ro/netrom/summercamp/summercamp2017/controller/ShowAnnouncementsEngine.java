@@ -79,10 +79,11 @@ public class ShowAnnouncementsEngine {
 		try {
 			int index = Integer.parseInt(request.getParameter("announcementIndex"));
 			model.addAttribute("announcement", announcements[index]);
-			System.out.println("object loaded");
+			model.addAttribute("index", request.getParameter("announcementIndex"));
+			System.out.println("announcement loaded from server cache");
 		} catch (Exception ex) {
 			model.addAttribute("announcement", null);
-			System.out.println("object NOT loaded");
+			System.out.println("announcement NOT from server cache");
 		}
 	}
 }

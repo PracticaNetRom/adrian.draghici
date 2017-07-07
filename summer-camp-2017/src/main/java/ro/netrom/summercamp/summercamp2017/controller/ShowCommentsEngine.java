@@ -4,15 +4,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.ModelMap;
 
+import ro.netrom.summercamp.summercamp2017.data.Comment;
+import ro.netrom.summercamp.summercamp2017.services.CommentFetcher;
+
 public class ShowCommentsEngine {
 
-	public void showComment(ModelMap model, HttpServletRequest request){
+	public void showComments(ModelMap model, HttpServletRequest request){
 		try {
-			int index = Integer.parseInt(request.getParameter("announcementIndex"));
-//			model.addAttribute("announcement", announcements[index]);
+			int index = Integer.parseInt(request.getParameter("announcementId"));
+			Comment[] comments= new CommentFetcher().getComments(index);
+			model.addAttribute("commentsRoot", comments);
+			model.addAttribute("comments", null);
 			System.out.println("object loaded");
 		} catch (Exception ex) {
-			model.addAttribute("announcement", null);
+			model.addAttribute("comments", null);
 			System.out.println("object NOT loaded");
 		}
 	}

@@ -45,7 +45,8 @@
 						<td width=500>${announcement.content}</td>
 					</tr>
 					<tr>
-						<td align="center" colspan="2" bgColor="GoldenRod">Date contact</td>
+						<td align="center" colspan="2" bgColor="GoldenRod">Date
+							contact</td>
 					</tr>
 					<tr>
 						<td width=200>Nume:</td>
@@ -65,13 +66,46 @@
 					</tr>
 				</table>
 			</div>
-			<div>
-				<h3 align="center">Comentarii anunt</h3>
-				
+			<div align="center">
+				<br />
+				<form method="post">
+					<input name="announcementId" type="hidden"
+						value="${announcement.id}" /> <input name="announcementIndex"
+						type="hidden" value="${index}" /> <input name="showComments"
+						id="showComments" type="hidden" value="${showComments}" /> <input
+						id="commentsAction" type="button" onclick="getComments();"
+						style="font-size: 20pt; color: black; background-color: Thistle;"
+						value="&#10077;&#10078; Afisati comentarii">
+				</form>
+				<div id="commentsRoot"></div>
 			</div>
 		</c:when>
 		<c:otherwise>
-			<h1 align="center">Anuntul nu exista!</h1>
+			<h1 align="center">&#9940; Anuntul nu exista!</h1>
 		</c:otherwise>
 	</c:choose>
 </div>
+<script>
+	function getComments() {
+		if (document.getElementById('showComments').value == 'false') {
+			document.getElementById('showComments').value = 'true';
+			document.getElementById('commentsAction').value = "\u275D\u275E Ascundeti comentarii";
+			$.ajax({
+				url : 'comments.html',
+				type : 'POST',
+				data : {
+					announcementId : ${announcement.id},
+					announcementIndex : ${index},
+					showComments: true
+				},
+				success : function(result) {
+					$("#commentsRoot").html(result);
+				}
+			});
+		} else {
+			document.getElementById('commentsAction').value = "\u275D\u275E Afisati comentarii";
+			document.getElementById('showComments').value = 'false';
+			$("#commentsRoot").html("");
+		}
+	}
+</script>

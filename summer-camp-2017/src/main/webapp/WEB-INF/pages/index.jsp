@@ -5,10 +5,11 @@
 <html>
 <head>
 <title>${title}</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body bgcolor="MediumSpringGreen">
 	<%@ include file="include/header.jsp"%>
-	<jsp:include page="${content}"/>
+	<jsp:include page="${content}"></jsp:include>
     <div id="includedContent"></div>
 	<%@ include file="include/footer.jsp"%>
 </body>
