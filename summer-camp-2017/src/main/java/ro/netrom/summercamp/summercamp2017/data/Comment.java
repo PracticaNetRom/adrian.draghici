@@ -9,10 +9,18 @@ public class Comment {
 	private String name;
 	private Integer announcementId;
 	private Date createDate;
-	private Integer parent;//comment id for quoted comment if this comment is comment for another comment
+	private Integer parentId;//comment id for quoted comment if this comment is comment for another comment
 	private Comment[] children;
 
-	public Comment() {
+	public Comment(){
+		
+	}
+	
+	public Comment(Integer announcementId,Integer parent,String name,String content) {
+		this.announcementId=announcementId;
+		this.parentId=parent;
+		this.name=name;
+		this.content=content.replaceAll("(\r\n|\r|\n)", "<br/>");
 	}
 
 	public Integer getId() {
@@ -55,12 +63,12 @@ public class Comment {
 		this.createDate = createDate;
 	}
 
-	public Integer getParent() {
-		return parent;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setParent(Integer parent) {
-		this.parent = parent;
+	public void setParentId(Integer parent) {
+		this.parentId = parent;
 	}
 
 	public Comment[] getChildren() {

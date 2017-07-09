@@ -12,7 +12,7 @@
 			</tr>
 			<tr>
 				<td align="right" style="white-space: nowrap;">Nume*:</td>
-				<td align="center"><input type="text" name="requesterFirstName"
+				<td align="left"><input type="text" name="requesterFirstName"
 					value="${requesterFirstName}" size="30" /></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${requesterFirstNameError}</b></span>
@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td align="right" style="white-space: nowrap;">Prenume*:</td>
-				<td align="center"><input type="text" name="requesterLastName"
+				<td align="left"><input type="text" name="requesterLastName"
 					value="${requesterLastName}" size="30" /></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${requesterLastNameError}</b></span>
@@ -28,7 +28,7 @@
 			</tr>
 			<tr>
 				<td align="right" style="white-space: nowrap;">E-mail*:</td>
-				<td align="center"><input type="text" name="requesterEmail"
+				<td align="left"><input type="text" name="requesterEmail"
 					id="requesterEmail" value="${requesterEmail}" size="30" /></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${requesterEmailError}</b></span>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td align="right" style="white-space: nowrap;">Numar Telefon:</td>
-				<td align="center"><input type="text" name="requesterPhone"
+				<td align="left"><input type="text" name="requesterPhone"
 					value="${requesterPhone}" size="30" /></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${requesterPhoneError}</b></span>
@@ -47,15 +47,15 @@
 			</tr>
 			<tr>
 				<td align="right" style="white-space: nowrap;">Titlu*:</td>
-				<td align="center"><input type="text" name="annoucementTitle"
+				<td align="left"><input type="text" name="annoucementTitle"
 					value="${annoucementTitle}" size="30" /></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${annoucementTitleError}</b></span>
 				</td>
 			</tr>
 			<tr>
-				<td align="right" style="white-space: nowrap;">Adresa*:</td>
-				<td align="center"><input type="text" name="annoucementAddress"
+				<td align="right" style="white-space: nowrap;">Adresa:</td>
+				<td align="left"><input type="text" name="annoucementAddress"
 					value="${annoucementAddress}" size="30" /></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${annoucementAddressError}</b></span>
@@ -64,73 +64,57 @@
 			<tr>
 				<td align="right" style="white-space: nowrap;">Valabilitate
 					(zile)*:</td>
-				<td align="center"><input type="text"
-					name="annoucementValidity" value="${annoucementValidity}" size="30" /></td>
+				<td align="left"><input type="text" name="annoucementValidity"
+					value="${annoucementValidity}" size="30" /></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${annoucementValidityError}</b></span>
 				</td>
 			</tr>
 			<tr>
 				<td align="right" style="white-space: nowrap;">Categorie*:</td>
-				<td align="center"><select style="width: 245px; height: 30"
+				<td align="left"><select style="width: 245px; height: 30"
 					id="annoucementCategory" name="annoucementCategory">
-						<option value="Altele">Altele</option>
-						<option value="Animale">Animale</option>
-						<option value="Arta">Arta</option>
-						<option value="Auto">Auto</option>
-						<option value="Casa si Gradina">Casa si Gradina</option>
-						<option value="Cars">Cars</option>
-						<option value="Electronice">Electronice</option>
-						<option value="Imobiliare">Imobiliare</option>
-						<option value="Imbracaminte">Imbracaminte</option>
-						<option value="Servicii">Servicii</option>
-						<option value="Sport">Sport</option>
+						<c:forEach var="category" items="${categories}" varStatus="loop">
+							<option value="${category.name}">${category.name}-
+								${category.description}</option>
+						</c:forEach>
 				</select></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${annoucementCategoryError}</b></span>
 				</td>
 			</tr>
 			<tr>
-				<td align="center" colspan="3"><input type="submit"
-					onclick="sendCode();"
-					style="font-size: 12pt; color: black; background-color: Aquamarine;"
-					value="Trimite Cod Confirmare pe Email"> <input
-					name="contactEmail" id="contactEmail" type="hidden" value="">
-					<script>
-						function sendCode() {
-							document.getElementById('contactEmail').value = document
-									.getElementById('requesterEmail').value;
-							document.getElementById('comanda').value = "sendConfCode";
-						}
-					</script></td>
-			</tr>
-			<tr>
-				<td align="right" style="white-space: nowrap;">Cod confirmare*:</td>
-				<td align="center"><input type="text"
-					name="annoucementConfCode" value="${annoucementConfCode}" size="30" /></td>
-				<td><span class="error"
-					style="color: red; white-space: nowrap;"><b>${annoucementConfCodeError}</b></span>
-				</td>
-			</tr>
-			<tr>
-				<td align="center" colspan="3"><h5>Pentru a primii acest
-						cod trebuie sa selectati 'Trimitere cod pe Email' dupa ce ati
-						comletat adresa de e-mail</h5></td>
-			</tr>
-			<tr>
 				<td align="right" style="white-space: nowrap;">Continut*:</td>
-				<td align="center"><textarea name="annoucementContent" rows="5"
+				<td align="left"><textarea name="annoucementContent" rows="5"
 						cols="50">${annoucementContent}</textarea></td>
 				<td><span class="error"
 					style="color: red; white-space: nowrap;"><b>${annoucementContentError}</b></span>
 				</td>
 			</tr>
+			<tr><td colspan="3" style="color: Magenta;" align="center"><b>&#10071;Campurile marcate cu * sunt obligatorii!</b></td></tr>
 		</table>
 		<span> <input type="submit"
 			style="font-size: 20pt; color: black; background-color: GreenYellow;"
 			value="Publica Anuntul">
 		</span>
 	</form>
-	<c:if test="${sendConfCode==true}"><script>alert("Codul a fost trimis cu succes pe adresa de e-mail\nVa rugam verificati atat in inbox cat si in spam/junk!");</script></c:if>
-	<c:if test="${addAnnouncement==true}"><script>alert("Anuntul a fost postat cu succes!\nAnuntul va fi afisat in ziar in cel mai scurt timp!\nVa multumim!");</script></c:if>
+	<c:if test="${addAnnouncement==true}">
+		<script>
+			alert("Anuntul trimis cu succes!\nUn link de activare va fi trimis pe adresa de e-mail.");
+		</script>
+	</c:if>
+	<c:if test="${!empty codeSent}">
+		<c:choose>
+			<c:when test="${codeSent==true}">
+				<script>
+					alert("E-mailul cu link-ul de activare al anuntului a fost trimis cu succes!\nVa rugam sa verificati atat in inbox cat si in spam/junk.\nAnuntul nu va fi publicat in Ziarul Online pana cand nu il activati!\nVa multumim!");
+				</script>
+			</c:when>
+			<c:otherwise>
+				<script>
+					alert("E-mailul cu link-ul de activare al anuntului NU a putut fi trimis!\nVa rugam sa contactai un administrator pentru suport!\nAnuntul nu va fi publicat in Ziarul Online pana cand nu il activati!\nVa multumim!");
+				</script>
+			</c:otherwise>
+		</c:choose>
+	</c:if>
 </div>

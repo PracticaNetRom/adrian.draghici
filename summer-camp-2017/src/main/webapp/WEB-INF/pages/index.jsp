@@ -7,10 +7,10 @@
 <title>${title}</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
+
 <body bgcolor="MediumSpringGreen">
 	<%@ include file="include/header.jsp"%>
-	<jsp:include page="${content}"></jsp:include>
-    <div id="includedContent"></div>
+    <div id="includedContent"><jsp:include page="${content}"></jsp:include></div>
 	<%@ include file="include/footer.jsp"%>
 </body>
 </html>

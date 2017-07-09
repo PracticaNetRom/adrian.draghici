@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div id="announcementItem">
 	<c:choose>
@@ -86,22 +85,31 @@
 	</c:choose>
 </div>
 <script>
+	function fetchComments(){
+		var announcementId;
+		if(${announcement.id!=null}){
+			announcementId=${announcement.id};
+		}else{
+			announcementId=${announcementId};
+		}
+		$.ajax({
+			url : 'comments.html',
+			type : 'POST',
+			data : {
+				announcementId : announcementId,
+				showComments: true
+			},
+			success : function(result) {
+				$("#commentsRoot").html(result);
+			}
+		});
+	}
+
 	function getComments() {
 		if (document.getElementById('showComments').value == 'false') {
 			document.getElementById('showComments').value = 'true';
 			document.getElementById('commentsAction').value = "\u275D\u275E Ascundeti comentarii";
-			$.ajax({
-				url : 'comments.html',
-				type : 'POST',
-				data : {
-					announcementId : ${announcement.id},
-					announcementIndex : ${index},
-					showComments: true
-				},
-				success : function(result) {
-					$("#commentsRoot").html(result);
-				}
-			});
+			fetchComments();
 		} else {
 			document.getElementById('commentsAction').value = "\u275D\u275E Afisati comentarii";
 			document.getElementById('showComments').value = 'false';

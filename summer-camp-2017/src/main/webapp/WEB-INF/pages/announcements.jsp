@@ -34,10 +34,8 @@
 				</table>
 			</div>
 			<br /> <br />
-			<c:set var="index" scope="session" value="${(pageNr-1)*10-1}" />
 			<c:forEach var="announcement" items="${announcements}"
 				varStatus="loop">
-				<c:set var="index" scope="session" value="${index+1}" />
 				<div>
 					<table align="center" border="1" bgcolor="PapayaWhip">
 						<tr>
@@ -74,10 +72,9 @@
 						</tr>
 						<tr>
 							<td align="center" colspan="2">
-								<form method="post" action="announcement.html">
+								<form method="get" action="announcement.html">
 									<input name="announcementId" type="hidden"
-										value="${announcement.id}" /> <input name="announcementIndex"
-										type="hidden" value="${index}" /> <input type="submit"
+										value="${announcement.id}" /> <input type="submit"
 										style="font-size: 20pt; color: black; background-color: Cyan; width: 700px"
 										value="&#9971; Deschideti Anuntul">
 								</form>

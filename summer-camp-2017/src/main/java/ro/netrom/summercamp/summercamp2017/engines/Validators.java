@@ -1,4 +1,4 @@
-package ro.netrom.summercamp.summercamp2017.controller;
+package ro.netrom.summercamp.summercamp2017.engines;
 
 import java.util.regex.Pattern;
 
@@ -25,7 +25,7 @@ public class Validators {
     }
 
     public static boolean isText(String input, int length) {
-        String regex = "[a-zA-Z0-9 .,;:-]{3," + length + "}";
+        String regex = "[a-zA-Z0-9 ~@*()_\\-+=,.?;:-^\\s!]{3," + length + "}";
         return Pattern.matches(regex, input);
     }
     

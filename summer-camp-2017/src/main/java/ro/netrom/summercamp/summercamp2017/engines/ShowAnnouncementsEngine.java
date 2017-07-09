@@ -1,4 +1,4 @@
-package ro.netrom.summercamp.summercamp2017.controller;
+package ro.netrom.summercamp.summercamp2017.engines;
 
 import java.util.Arrays;
 
@@ -11,14 +11,14 @@ import ro.netrom.summercamp.summercamp2017.services.AnnoucementFetcher;
 
 public class ShowAnnouncementsEngine {
 
-	private Annoucement[] announcements=null;
+	private Annoucement[] announcements = null;
 	private int pageNumber = 1;
-	
-	public ShowAnnouncementsEngine(){
-		
+
+	public ShowAnnouncementsEngine() {
+
 	}
-	
-	public void showAnnouncements(ModelMap model, HttpServletRequest request){
+
+	public void showAnnouncements(ModelMap model, HttpServletRequest request) {
 		try {
 			int pages = 0, from, to;
 			if (announcements != null && request != null) {
@@ -43,12 +43,11 @@ public class ShowAnnouncementsEngine {
 						}
 					}
 				}
-			}else{
-				pageNumber=1;
+			} else {
+				pageNumber = 1;
 			}
 			if (pageNumber == 1) {
-				AnnoucementFetcher annoucementFetcher=new AnnoucementFetcher();
-				announcements = annoucementFetcher.getAnnoucements();
+				announcements = new AnnoucementFetcher().getAnnoucements();
 			}
 			if (announcements.length % 10 > 0) {
 				pages = announcements.length / 10 + 1;
@@ -70,20 +69,18 @@ public class ShowAnnouncementsEngine {
 			model.addAttribute("pageNr", pageNumber);
 			model.addAttribute("pages", pages);
 		} catch (Exception ex) {
-			System.out.println("ex:"+ex);
+			System.out.println("ex:" + ex);
 			model.addAttribute("announcement", null);
 		}
 	}
-	
-	public void showAnnouncement(ModelMap model, HttpServletRequest request){
+
+	public void showAnnouncement(ModelMap model, HttpServletRequest request) {
 		try {
-			int index = Integer.parseInt(request.getParameter("announcementIndex"));
-			model.addAttribute("announcement", announcements[index]);
-			model.addAttribute("index", request.getParameter("announcementIndex"));
-			System.out.println("announcement loaded from server cache");
+			int announcementId = Integer.parseInt(request.getParameter("announcementId"));
+			model.addAttribute("announcement", new AnnoucementFetcher().getAnnoucement(announcementId));
 		} catch (Exception ex) {
 			model.addAttribute("announcement", null);
-			System.out.println("announcement NOT from server cache");
+			System.out.println("invalid announcementId");
 		}
 	}
 }

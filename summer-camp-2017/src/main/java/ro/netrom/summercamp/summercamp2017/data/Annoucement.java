@@ -27,7 +27,7 @@ public class Annoucement {
 	}
 
 	public Annoucement(String ownerFirstName, String ownerLastName, String ownerEmail, String ownerPhone, String title,
-			String location, int valability, String categoryName, String categoryDescription,
+			String location, int valability, String categoryName,
 			String confirmationCode, String content) {
 		this.title=title;
 		this.location=location;
@@ -41,8 +41,10 @@ public class Annoucement {
 		this.ownerLastName=ownerLastName;
 		this.ownerPhone=ownerPhone;
 		this.categoryName=categoryName;
-		this.categoryDescription=categoryDescription;
-		this.content=content;
+		this.categoryDescription="";
+		System.out.println("content1: "+content);
+		this.content=content.replaceAll("(\r\n|\r|\n)", "<br/>");
+		System.out.println("content2: "+this.content);
 	}
 
 	public Integer getId() {

@@ -7,11 +7,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ro.netrom.summercamp.summercamp2017.engines.ShowAnnouncementsEngine;
+
 @Controller
 public class IndexController {
 
 	private ShowAnnouncementsEngine showAnnouncementsEngine = null;
-	private AddAnnoucementEngine addAnnoucementEngine = null;
 
 	@RequestMapping(value = { "/", "index.html" }, method = RequestMethod.GET)
 	public String getIndexGet(ModelMap model) {
@@ -32,53 +33,6 @@ public class IndexController {
 			showAnnouncementsEngine = new ShowAnnouncementsEngine();
 		}
 		showAnnouncementsEngine.showAnnouncements(model, request);
-		return "index";
-	}
-
-	@RequestMapping(value = { "announcement.html" }, method = RequestMethod.POST)
-	public String getAnnouncements(ModelMap model, HttpServletRequest request) {
-		model.addAttribute("title", "Anunt #" + request.getParameter("announcementId"));
-		model.addAttribute("content", "announcement.jsp");
-		if (showAnnouncementsEngine == null) {
-			showAnnouncementsEngine = new ShowAnnouncementsEngine();
-		}
-		showAnnouncementsEngine.showAnnouncement(model, request);
-		if (request.getParameter("showComments")!=null && request.getParameter("showComments").equals("true")) {
-			model.addAttribute("showComments", true);
-			new ShowCommentsEngine().showComments(model, request);
-		}else{
-			model.addAttribute("showComments", false);
-		}
-		return "index";
-	}
-	
-	@RequestMapping(value = { "comments.html" }, method = RequestMethod.POST)
-	public String getComments(ModelMap model, HttpServletRequest request) {
-		if (showAnnouncementsEngine == null) {
-			showAnnouncementsEngine = new ShowAnnouncementsEngine();
-		}
-		if (request.getParameter("showComments")!=null && request.getParameter("showComments").equals("true")) {
-			model.addAttribute("showComments", true);
-			new ShowCommentsEngine().showComments(model, request);
-		}else{
-			model.addAttribute("showComments", false);
-		}
-		return "include/commentsRoot";
-	}
-
-	@RequestMapping(value = { "/resources" })
-	public String getResources() {
-		return "resources";
-	}
-
-	@RequestMapping(value = "add.html")
-	public String addAnnouncement(ModelMap model, HttpServletRequest request) {
-		model.addAttribute("title", "Anunt nou");
-		model.addAttribute("content", "new.jsp");
-		if (addAnnoucementEngine == null) {
-			addAnnoucementEngine = new AddAnnoucementEngine();
-		}
-		addAnnoucementEngine.addAnnoucement(model, request);
 		return "index";
 	}
 

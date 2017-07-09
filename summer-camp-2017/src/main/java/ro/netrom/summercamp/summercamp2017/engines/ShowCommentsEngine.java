@@ -1,4 +1,4 @@
-package ro.netrom.summercamp.summercamp2017.controller;
+package ro.netrom.summercamp.summercamp2017.engines;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,14 +11,14 @@ public class ShowCommentsEngine {
 
 	public void showComments(ModelMap model, HttpServletRequest request){
 		try {
-			int index = Integer.parseInt(request.getParameter("announcementId"));
-			Comment[] comments= new CommentFetcher().getComments(index);
+			int announcementId = Integer.parseInt(request.getParameter("announcementId"));
+			Comment[] comments= new CommentFetcher().getComments(announcementId);
 			model.addAttribute("commentsRoot", comments);
 			model.addAttribute("comments", null);
-			System.out.println("object loaded");
+			System.out.println("comments loaded");
 		} catch (Exception ex) {
 			model.addAttribute("comments", null);
-			System.out.println("object NOT loaded");
+			System.out.println("comments NOT loaded. reason:"+ex);
 		}
 	}
 	
