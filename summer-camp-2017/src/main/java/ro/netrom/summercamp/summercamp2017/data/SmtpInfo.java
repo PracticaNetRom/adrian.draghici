@@ -10,10 +10,10 @@ public class SmtpInfo {
 	private final Boolean smtpStartTLSEnable;
 
 	public SmtpInfo(){//hardcoded SMTP credentials
-		this.smtpServer = "mail.ady-web.tk";
-		this.smtpPort = "465";
-		this.username = "test1@ady-web.tk";
-		this.password = "*Smtp*10Test1";
+		this.smtpServer = "smtp.gmail.com";//mail.ady-web.tk
+		this.smtpPort = "587";
+		this.username = "clasa9r1@gmail.com";//test1@ady-web.tk
+		this.password = "*Clasa*(R1";//*Smtp*10Test1
 		this.smtpUserAuthentication = true;
 		this.smtpStartTLSEnable = true;
 	}
@@ -44,11 +44,11 @@ public class SmtpInfo {
 		return smtpPort;
 	}
 
-	public Boolean getSmtpUserAuthentication() {
-		return smtpUserAuthentication;
+	public String getSmtpUserAuthentication() {
+		return ""+smtpUserAuthentication;
 	}
 
-	public Boolean getSmtpStartTLSEnable() {
-		return smtpStartTLSEnable;
+	public String getSmtpStartTLSEnable() {
+		return ""+smtpStartTLSEnable;
 	}
 }

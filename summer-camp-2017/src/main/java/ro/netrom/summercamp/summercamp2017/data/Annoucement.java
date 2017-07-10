@@ -9,14 +9,17 @@ public class Annoucement {
 	private String title;
 	private String content;
 	private String location;
-	private boolean status;
+	private Boolean status;
 	private String confirmationCode;
+	
 	private Date createDate;
 	private Date expireDate;
+	
 	private String ownerEmail;
 	private String ownerFirstName;
 	private String ownerLastName;
 	private String ownerPhone;
+	
 	private String categoryName;
 	private String categoryDescription;
 
@@ -44,6 +47,7 @@ public class Annoucement {
 		this.categoryDescription="";
 		System.out.println("content1: "+content);
 		this.content=content.replaceAll("(\r\n|\r|\n)", "<br/>");
+		this.status=true;
 		System.out.println("content2: "+this.content);
 	}
 

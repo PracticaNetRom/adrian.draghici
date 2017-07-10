@@ -15,18 +15,7 @@ public class IndexController {
 	private ShowAnnouncementsEngine showAnnouncementsEngine = null;
 
 	@RequestMapping(value = { "/", "index.html" }, method = RequestMethod.GET)
-	public String getIndexGet(ModelMap model) {
-		model.addAttribute("title", "Anunturi");
-		model.addAttribute("content", "announcements.jsp");
-		if (showAnnouncementsEngine == null) {
-			showAnnouncementsEngine = new ShowAnnouncementsEngine();
-		}
-		showAnnouncementsEngine.showAnnouncements(model, null);
-		return "index";
-	}
-
-	@RequestMapping(value = { "/", "index.html" }, method = RequestMethod.POST)
-	public String getIndexPost(ModelMap model, HttpServletRequest request) {
+	public String getIndexGet(ModelMap model, HttpServletRequest request) {
 		model.addAttribute("title", "Anunturi");
 		model.addAttribute("content", "announcements.jsp");
 		if (showAnnouncementsEngine == null) {
@@ -35,5 +24,4 @@ public class IndexController {
 		showAnnouncementsEngine.showAnnouncements(model, request);
 		return "index";
 	}
-
 }

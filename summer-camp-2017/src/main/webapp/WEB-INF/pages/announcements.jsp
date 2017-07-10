@@ -13,35 +13,30 @@
 				<table bgcolor="PaleTurquoise" align="center" border="0">
 					<tr>
 						<td width=200>
-							<form method="post">
-								<input name="mode" type="hidden" value="back" /> <input
+							<form method="GET">
+								<input name="pageNr" type="hidden" value="${pageNr-1}" /> <input
 									type="submit" id="backTop"
 									style="font-size: 20pt; color: black; background-color: Orchid;"
 									value="&#9668; Pagina anterioara">
 							</form>
 						</td>
-						<td width="500" align="center" style="font-size: 15pt;">Pagina
-
-							<select id="gotoPageTop" name="gotoPageTop">
-								<c:forEach begin="1" end="${pages}" varStatus="loop">
-									<c:choose>
-										<c:when test="${loop.index==pageNr}">
-											<form method="post" id="pageChooserTop" name="pageChooserTop">
-												<input name="pageNrTop" id="pageNrTop" type="hidden"
-													value="${loop.index}" />
-											</form>
-											<option value="${loop.index}" selected="selected">${loop.index}</option>
-										</c:when>
-										<c:otherwise>
-											<option value="${loop.index}">${loop.index}</option>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-						</select> din ${pages}
-						</td>
+						<td width="500" align="center" style="font-size: 15pt;"><span>Pagina</span>
+							<span> <select id="gotoPageTop" name="gotoPageTop">
+									<c:forEach begin="1" end="${pages}" varStatus="loop">
+										<c:choose>
+											<c:when test="${loop.index==pageNr}">
+												<option value="${loop.index}" selected="selected">${loop.index}</option>
+											</c:when>
+											<c:otherwise>
+												<option value="${loop.index}">${loop.index}</option>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+							</select>
+						</span> <span>din ${pages}</span></td>
 						<td width=200>
-							<form method="post">
-								<input name="mode" type="hidden" value="next" /> <input
+							<form method="GET">
+								<input name="pageNr" type="hidden" value="${pageNr+1}" /> <input
 									type="submit" id="nextTop"
 									style="font-size: 20pt; color: black; background-color: Orchid;"
 									value="Pagina urmatoare &#9658;">
@@ -106,35 +101,31 @@
 				<table bgcolor="PaleTurquoise" align="center" border="0">
 					<tr>
 						<td width=200>
-							<form method="post">
-								<input name="mode" type="hidden" value="back" /> <input
+							<form method="GET">
+								<input name="pageNr" type="hidden" value="${pageNr-1}" /> <input
 									type="submit" id="backBot"
 									style="font-size: 20pt; color: black; background-color: Orchid;"
 									value="&#9668; Pagina anterioara">
 							</form>
 						</td>
 						<td width="500" align="center" style="font-size: 15pt;">Pagina
-							<form method="post" id="pageChooserBot" name="pageChooserBot">
-								<select style="width: 30px; height: 30" id="gotoPageBot"
-									name="gotoPageBot">
+							<span> <select id="gotoPageTop" name="gotoPageTop">
 									<c:forEach begin="1" end="${pages}" varStatus="loop">
 										<c:choose>
 											<c:when test="${loop.index==pageNr}">
-												<option value="${page}" selected="selected">${loop.index}</option>
-												<input name="pageNrBot" id="pageNrBot" type="hidden"
-													value="${loop.index}" />
+												<option value="${loop.index}" selected="selected">${loop.index}</option>
 											</c:when>
 											<c:otherwise>
 												<option value="${loop.index}">${loop.index}</option>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-								</select>
-							</form> din ${pages}
+							</select>
+						</span> <span>din ${pages}</span>
 						</td>
 						<td width=200>
-							<form method="post">
-								<input name="mode" type="hidden" value="next" /> <input
+							<form method="GET">
+								<input name="pageNr" type="hidden" value="${pageNr-1}" /> <input
 									type="submit" id="nextBot"
 									style="font-size: 20pt; color: black; background-color: Orchid;"
 									value="Pagina urmatoare &#9658;">
@@ -182,19 +173,9 @@
 </div>
 <script>
 	jQuery(function($) {
-		var gotoPage = $("#gotoPageTop").val();
-		$("#gotoPageTop").change(function() {
-			$("#pageNrTop").name = "pageNr";
-			$("#pageNrTop").id = "pageNr";
-			$('pageChooserTop').submit();
-		});
-	});
-	jQuery(function($) {
-		var gotoPage = $("#gotoPageBot").val();
-		$("#gotoPageBot").change(function() {
-			$("#pageNrBot").name = "pageNr";
-			$("#pageNrBot").id = "pageNr";
-			$('pageChooserBot').submit();
+		$("#gotoPageTop, #gotoPageBot").change(function() {
+			var pageNumber = $(this).val();
+			window.location = "index.html?pageNr=" + pageNumber;
 		});
 	});
 </script>

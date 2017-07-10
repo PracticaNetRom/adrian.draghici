@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 
 import ro.netrom.summercamp.summercamp2017.data.Annoucement;
 import ro.netrom.summercamp.summercamp2017.services.AnnoucementFetcher;
@@ -21,32 +22,9 @@ public class ShowAnnouncementsEngine {
 	public void showAnnouncements(ModelMap model, HttpServletRequest request) {
 		try {
 			int pages = 0, from, to;
-			if (announcements != null && request != null) {
-				if (announcements.length % 10 > 0) {
-					pages = announcements.length / 10 + 1;
-				} else {
-					pages = announcements.length / 10;
-				}
-				if (request.getParameter("pageNr") != null) {
-					pageNumber = Integer.parseInt(request.getParameter("pageNr"));
-				} else {
-					if (request.getParameter("mode") != null && pageNumber <= pages && pageNumber > 0) {
-						switch (request.getParameter("mode")) {
-						case "next":
-							pageNumber++;
-							System.out.println("next");
-							break;
-						case "back":
-							pageNumber--;
-							System.out.println("back");
-							break;
-						}
-					}
-				}
-			} else {
-				pageNumber = 1;
-			}
-			if (pageNumber == 1) {
+			pageNumber = ServletRequestUtils.getIntParameter(request, "pageNr", 1);
+			pageNumber = pageNumber <=0 ? 1 : pageNumber;
+			if (announcements == null || pageNumber == 1) {
 				announcements = new AnnoucementFetcher().getAnnoucements();
 			}
 			if (announcements.length % 10 > 0) {
