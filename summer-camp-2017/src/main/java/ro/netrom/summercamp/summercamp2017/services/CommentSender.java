@@ -22,7 +22,7 @@ public class CommentSender {
 				return true;
 			}
 		} catch (Exception ex) {
-
+			System.out.println("sending comment ex:"+ex);
 		}
 		System.out.println("comment NOT sent!");
 		return false;

@@ -21,7 +21,24 @@
 							</form>
 						</td>
 						<td width="500" align="center" style="font-size: 15pt;">Pagina
-							${pageNr} din ${pages}</td>
+
+							<select id="gotoPageTop" name="gotoPageTop">
+								<c:forEach begin="1" end="${pages}" varStatus="loop">
+									<c:choose>
+										<c:when test="${loop.index==pageNr}">
+											<form method="post" id="pageChooserTop" name="pageChooserTop">
+												<input name="pageNrTop" id="pageNrTop" type="hidden"
+													value="${loop.index}" />
+											</form>
+											<option value="${loop.index}" selected="selected">${loop.index}</option>
+										</c:when>
+										<c:otherwise>
+											<option value="${loop.index}">${loop.index}</option>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+						</select> din ${pages}
+						</td>
 						<td width=200>
 							<form method="post">
 								<input name="mode" type="hidden" value="next" /> <input
@@ -33,7 +50,8 @@
 					</tr>
 				</table>
 			</div>
-			<br /> <br />
+			<br />
+			<br />
 			<c:forEach var="announcement" items="${announcements}"
 				varStatus="loop">
 				<div>
@@ -96,7 +114,24 @@
 							</form>
 						</td>
 						<td width="500" align="center" style="font-size: 15pt;">Pagina
-							${pageNr} din ${pages}</td>
+							<form method="post" id="pageChooserBot" name="pageChooserBot">
+								<select style="width: 30px; height: 30" id="gotoPageBot"
+									name="gotoPageBot">
+									<c:forEach begin="1" end="${pages}" varStatus="loop">
+										<c:choose>
+											<c:when test="${loop.index==pageNr}">
+												<option value="${page}" selected="selected">${loop.index}</option>
+												<input name="pageNrBot" id="pageNrBot" type="hidden"
+													value="${loop.index}" />
+											</c:when>
+											<c:otherwise>
+												<option value="${loop.index}">${loop.index}</option>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</select>
+							</form> din ${pages}
+						</td>
 						<td width=200>
 							<form method="post">
 								<input name="mode" type="hidden" value="next" /> <input
@@ -117,8 +152,8 @@
 				</c:when>
 				<c:otherwise>
 					<script>
-					document.getElementById("backTop").disabled = false;
-					document.getElementById("backBot").disabled = false;
+						document.getElementById("backTop").disabled = false;
+						document.getElementById("backBot").disabled = false;
 					</script>
 				</c:otherwise>
 			</c:choose>
@@ -131,17 +166,35 @@
 				</c:when>
 				<c:otherwise>
 					<script>
-					document.getElementById("nextTop").disabled = false;
-					document.getElementById("nextBot").disabled = false;
+						document.getElementById("nextTop").disabled = false;
+						document.getElementById("nextBot").disabled = false;
 					</script>
 				</c:otherwise>
 			</c:choose>
 		</c:when>
 		<c:otherwise>
 			<h1 align="center">
-				&#9940; Momentan nu sunt anununturi in ziarul online!<br />Va asteptam mai
-				tarziu!
+				&#9940; Momentan nu sunt anununturi in ziarul online!<br />Va
+				asteptam mai tarziu!
 			</h1>
 		</c:otherwise>
 	</c:choose>
 </div>
+<script>
+	jQuery(function($) {
+		var gotoPage = $("#gotoPageTop").val();
+		$("#gotoPageTop").change(function() {
+			$("#pageNrTop").name = "pageNr";
+			$("#pageNrTop").id = "pageNr";
+			$('pageChooserTop').submit();
+		});
+	});
+	jQuery(function($) {
+		var gotoPage = $("#gotoPageBot").val();
+		$("#gotoPageBot").change(function() {
+			$("#pageNrBot").name = "pageNr";
+			$("#pageNrBot").id = "pageNr";
+			$('pageChooserBot').submit();
+		});
+	});
+</script>

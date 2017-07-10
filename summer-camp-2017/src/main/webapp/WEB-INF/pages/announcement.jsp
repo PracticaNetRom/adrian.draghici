@@ -67,16 +67,35 @@
 			</div>
 			<div align="center">
 				<br />
-				<form method="post">
-					<input name="announcementId" type="hidden"
-						value="${announcement.id}" /> <input name="announcementIndex"
-						type="hidden" value="${index}" /> <input name="showComments"
-						id="showComments" type="hidden" value="${showComments}" /> <input
-						id="commentsAction" type="button" onclick="getComments();"
-						style="font-size: 20pt; color: black; background-color: Thistle;"
-						value="&#10077;&#10078; Afisati comentarii">
-				</form>
+				<table align="center">
+					<tr>
+						<td>
+							<form method="post">
+								<input name="announcementId" type="hidden"
+									value="${announcement.id}" /> <input name="showComments"
+									id="showComments" type="hidden" value="${showComments}" /> <input
+									id="commentsAction" type="button" onclick="getComments();"
+									style="font-size: 20pt; color: black; background-color: Thistle;"
+									value="&#10077;&#10078; Afisati comentarii">
+							</form>
+						</td>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>
+							<form method="post">
+								<input name="announcementId" type="hidden"
+									value="${announcement.id}" /> <input
+									name="ownerEmail" id="ownerEmail"
+									type="hidden" value="${announcement.ownerEmail}" /> <input
+									id="dezactivateAnnouncementAction" type="button"
+									onclick="dezactivateAnnouncement();"
+									style="font-size: 20pt; color: DarkRed; background-color: OrangeRed;"
+									value="&#10008; Dezactivati Anuntul">
+							</form>
+						</td>
+					</tr>
+				</table>
 				<div id="commentsRoot"></div>
+				<div id="answ"></div>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -99,7 +118,7 @@
 				announcementId : announcementId,
 				showComments: true
 			},
-			success : function(result) {
+			success : function(result, textStatus, request) {
 				$("#commentsRoot").html(result);
 			}
 		});
@@ -114,6 +133,34 @@
 			document.getElementById('commentsAction').value = "\u275D\u275E Afisati comentarii";
 			document.getElementById('showComments').value = 'false';
 			$("#commentsRoot").html("");
+		}
+	}
+	
+	function dezactivateAnnouncement(){
+		if(confirm("Dezactivarea anuntului presupune stergerea acestuia din ziarul online!\nAceasta actiune necesita confirmare prin transmiterea unui e-mail proprietarului cu un link de confirmare.\n\nSunteti sigut ca doriti sa dezactivati anuntul?")==true){
+			var ownerEmail=document.getElementById('ownerEmail').value;
+			$.ajax({
+				url : 'requestDezactivation.html',
+				type : 'POST',
+				data : {
+					announcementId : ${announcement.id},
+					ownerEmail: ownerEmail
+				},
+				success : function(result, textStatus, request) {
+					alert("Raspuns: "+request.getResponseHeader('codeSent'));
+					$("#answ").html(result);
+					var codeSent = document.getElementById("codeSent").value;
+					if(codeSent!=""){
+						if(codeSent!=false){
+							alert("E-mailul cu link-ul de dezactivare al anuntului a fost trimis cu succes!\nVa rugam sa verificati atat in inbox cat si in spam/junk.\nAnuntul nu va fi dezactivat din Ziarul Online pana cand nu confirmati dezactivarea!\nVa multumim!");
+						}else{
+							alert("E-mailul cu link-ul de dezactivare al anuntului NU a putut fi trimis!\nVa rugam sa contactati un administrator pentru suport!\nAnuntul nu va fi dezactivat din Ziarul Online pana cand nu confirmati dezactivarea!\nVa multumim!");
+						}
+					}else{
+						alert("O solicitare de dezactivare a fost deja trimisa pe adresa de e-mail!")
+					}
+				}
+			});
 		}
 	}
 </script>

@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ro.netrom.summercamp.summercamp2017.engines.AddAnnoucementEngine;
+import ro.netrom.summercamp.summercamp2017.engines.RemoveAnnouncementEngine;
 import ro.netrom.summercamp.summercamp2017.engines.ShowAnnouncementsEngine;
 import ro.netrom.summercamp.summercamp2017.engines.ShowCommentsEngine;
 
 @Controller
 public class AnnouncementsController {
 
+	private ModelMap requests=new ModelMap();
+	
 	@RequestMapping(value = { "announcement.html" }, method = RequestMethod.GET)
 	public String getAnnouncements(ModelMap model, HttpServletRequest request) {
 		model.addAttribute("title", "Anunt #" + request.getParameter("announcementId"));
@@ -26,8 +29,13 @@ public class AnnouncementsController {
 		} else {
 			model.addAttribute("showComments", false);
 		}
-		model.addAttribute("index", request.getParameter("index"));
 		return "index";
+	}
+	
+	@RequestMapping(value = { "requestDezactivation.html" }, method = RequestMethod.POST)
+	public String requestAnnouncementDezactivation(ModelMap model, HttpServletRequest request) {
+		new RemoveAnnouncementEngine().requestDezactivateAnnouncement(model, request,requests);
+		return "include/resp";
 	}
 
 	@RequestMapping(value = "add.html")
@@ -48,7 +56,7 @@ public class AnnouncementsController {
 	@RequestMapping(value = "dezactivate.html", method = RequestMethod.GET)
 	public String dezactivateAnnouncement(ModelMap model, HttpServletRequest request) {
 		model.addAttribute("content", "include/result.jsp");
-		new AddAnnoucementEngine().dezactivateAnnouncement(model, request);
+		new RemoveAnnouncementEngine().dezactivateAnnouncement(model, request,requests);
 		return "index";
 	}
 	

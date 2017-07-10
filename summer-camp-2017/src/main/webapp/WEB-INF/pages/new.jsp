@@ -75,8 +75,17 @@
 				<td align="left"><select style="width: 245px; height: 30"
 					id="annoucementCategory" name="annoucementCategory">
 						<c:forEach var="category" items="${categories}" varStatus="loop">
-							<option value="${category.name}">${category.name}-
-								${category.description}</option>
+							<c:choose>
+								<c:when test="${category==annoucementCategory}">
+									<option value="${category.name}" selected="selected">${category.name}-
+										${category.description}</option>
+								</c:when>
+								<c:otherwise>
+									<option value="${category.name}">${category.name}-
+										${category.description}</option>
+								</c:otherwise>
+							</c:choose>
+
 						</c:forEach>
 				</select></td>
 				<td><span class="error"
@@ -91,7 +100,10 @@
 					style="color: red; white-space: nowrap;"><b>${annoucementContentError}</b></span>
 				</td>
 			</tr>
-			<tr><td colspan="3" style="color: Magenta;" align="center"><b>&#10071;Campurile marcate cu * sunt obligatorii!</b></td></tr>
+			<tr>
+				<td colspan="3" style="color: Magenta;" align="center"><b>&#10071;Campurile
+						marcate cu * sunt obligatorii!</b></td>
+			</tr>
 		</table>
 		<span> <input type="submit"
 			style="font-size: 20pt; color: black; background-color: GreenYellow;"

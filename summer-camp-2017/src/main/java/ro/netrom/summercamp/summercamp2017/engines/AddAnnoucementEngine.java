@@ -7,7 +7,6 @@ import org.springframework.ui.ModelMap;
 import ro.netrom.summercamp.summercamp2017.data.Annoucement;
 import ro.netrom.summercamp.summercamp2017.data.ConfirmationCode;
 import ro.netrom.summercamp.summercamp2017.services.AnnouncementActivator;
-import ro.netrom.summercamp.summercamp2017.services.AnnouncementDezactivator;
 import ro.netrom.summercamp.summercamp2017.services.AnnouncementSender;
 import ro.netrom.summercamp.summercamp2017.services.CategoryFetcher;
 
@@ -210,34 +209,6 @@ public class AddAnnoucementEngine {
 
 	}
 
-	public void dezactivateAnnouncement(ModelMap model, HttpServletRequest request) {
-		Integer announcementId = null;
-		try {
-			announcementId = Integer.parseInt(request.getParameter("announcementId"));
-		} catch (Exception e) {
-		}
-		String ownerEmail = request.getParameter("ownerEmail");
-		String confirmationCode=request.getParameter("confirmationCode");
-		System.out.println("announcementId: "+announcementId+"\nemail: "+ownerEmail+"\nconfirmationCode: "+confirmationCode);
-		if (announcementId != null && ownerEmail!=null && confirmationCode != null) {
-			newAnnouncement = new AnnouncementDezactivator().dezactivateAnnoucement(announcementId, ownerEmail);
-			if (newAnnouncement != null) {
-				model.addAttribute("title", "Dezactivare anunt Nr: #" + announcementId);
-				model.addAttribute("announcementId", announcementId);
-				model.addAttribute("result",
-						"Anuntul cu numarul: Nr: #" + announcementId + " a fost dezactivat cu succes!");
-				model.addAttribute("status", true);
-			} else {
-				model.addAttribute("title", "Dezactivare anunt Nr: #" + announcementId);
-				model.addAttribute("announcementId", announcementId);
-				model.addAttribute("result", "Anuntul cu numarul: Nr: #" + announcementId + " nu a fost dezactivat!");
-				model.addAttribute("status", false);
-			}
-		} else {
-			model.addAttribute("title", "Solicitare invalida");
-			model.addAttribute("result", "Solicitarea dumneavoastra este invalida!");
-			model.addAttribute("status", false);
-		}
-	}
+	
 
 }
