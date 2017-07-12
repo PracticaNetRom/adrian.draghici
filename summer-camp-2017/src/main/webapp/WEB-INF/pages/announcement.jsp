@@ -147,7 +147,6 @@
 					ownerEmail: ownerEmail
 				},
 				success : function(result, textStatus, request) {
-					alert("Raspuns: "+request.getResponseHeader('codeSent'));
 					$("#answ").html(result);
 					var codeSent = document.getElementById("codeSent").value;
 					if(codeSent!=""){

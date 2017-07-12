@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 
 import ro.netrom.summercamp.summercamp2017.data.Annoucement;
 import ro.netrom.summercamp.summercamp2017.data.ConfirmationCode;
+import ro.netrom.summercamp.summercamp2017.services.AnnoucementFetcher;
 import ro.netrom.summercamp.summercamp2017.services.AnnouncementActivator;
 import ro.netrom.summercamp.summercamp2017.services.AnnouncementSender;
 import ro.netrom.summercamp.summercamp2017.services.CategoryFetcher;
@@ -185,30 +186,31 @@ public class AddAnnoucementEngine {
 		}
 		String confirmationCode = request.getParameter("confirmationCode");
 		if (announcementId != null && confirmationCode != null) {
-			newAnnouncement = new AnnouncementActivator().activateAnnoucement(announcementId, confirmationCode);
-			if (newAnnouncement != null) {
-				String html = "<br/><br/><span align=\"center\"><form method=\"get\" action=\"announcement.html\"> <input name=\"announcementId\" type=\"hidden\" value=\""
-						+ announcementId
-						+ "\" /> <input type=\"submit\" style=\"font-size: 20pt; color: black; background-color: Cyan; width: 700px\" value=\"&#9971; Deschideti Anuntul\"> </span></div>";
-				model.addAttribute("title", "Activare anunt Nr: #" + announcementId);
-				model.addAttribute("announcementId", announcementId);
-				model.addAttribute("result",
-						"Anuntul cu numarul: Nr: #" + announcementId + " a fost activat cu succes!" + html);
-				model.addAttribute("status", true);
-			} else {
-				model.addAttribute("title", "Activare anunt Nr: #" + announcementId);
-				model.addAttribute("announcementId", announcementId);
-				model.addAttribute("result", "Anuntul cu numarul: Nr: #" + announcementId + " nu a fost activat!");
-				model.addAttribute("status", false);
+			Annoucement annoucement = new AnnoucementFetcher().getAnnoucement(announcementId);
+			if (annoucement != null && annoucement.isStatus()) {
+				newAnnouncement = new AnnouncementActivator().activateAnnoucement(announcementId, confirmationCode);
+				if (newAnnouncement != null) {
+					String html = "<br/><br/><span align=\"center\"><form method=\"get\" action=\"announcement.html\"> <input name=\"announcementId\" type=\"hidden\" value=\""
+							+ announcementId
+							+ "\" /> <input type=\"submit\" style=\"font-size: 20pt; color: black; background-color: Cyan; width: 700px\" value=\"&#9971; Deschideti Anuntul\"> </span></div>";
+					model.addAttribute("title", "Activare anunt Nr: #" + announcementId);
+					model.addAttribute("announcementId", announcementId);
+					model.addAttribute("result",
+							"Anuntul cu numarul: Nr: #" + announcementId + " a fost activat cu succes!" + html);
+					model.addAttribute("status", true);
+					return;
+				} else {
+					model.addAttribute("title", "Activare anunt Nr: #" + announcementId);
+					model.addAttribute("announcementId", announcementId);
+					model.addAttribute("result", "Anuntul cu numarul: Nr: #" + announcementId + " nu a fost activat!");
+					model.addAttribute("status", false);
+					return;
+				}
 			}
-		} else {
-			model.addAttribute("title", "Solicitare invalida");
-			model.addAttribute("result", "Solicitarea dumneavoastra este invalida!");
-			model.addAttribute("status", false);
 		}
-
+		model.addAttribute("title", "Solicitare invalida");
+		model.addAttribute("result", "Solicitarea dumneavoastra este invalida!");
+		model.addAttribute("status", false);
 	}
-
-	
 
 }

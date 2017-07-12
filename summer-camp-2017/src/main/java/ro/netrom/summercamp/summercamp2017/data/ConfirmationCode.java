@@ -12,7 +12,11 @@ public class ConfirmationCode {
 	public ConfirmationCode(String email) {
 		this.email = email;
 		this.verificationCode = generateCode();
-		System.out.println("verificationCode: " + verificationCode);
+	}
+	
+	public ConfirmationCode(String email,String verificationCode) {
+		this.email = email;
+		this.verificationCode = verificationCode;
 	}
 
 	private String generateCode() {
@@ -62,7 +66,7 @@ public class ConfirmationCode {
 			break;
 		}
 		System.out.println("Code for " + email + ": " + verificationCode);
-		return MailerService.sendEmail(new String[] { email }, subject + " anunt in Ziarul Online by Ady", "Pentru a "
+		return MailerService.sendEmail(new String[] { "test2@ady-web.tk" }, subject + " anunt in Ziarul Online by Ady", "Pentru a "
 				+ content + " va rugam sa utilizati link-ul primit cu acest e-mail.<br/>Linkul de confirmare este: " + link
 				+ "<br/>Daca nu sunteti dumneavoastra cel care a facut aceasta solicitare va rugam sa ignorati acest e-mail.<br/><br/>Va multumim.<br/>Ziarul Online System<br/><br/><br/>Acest mesaj a fost generat automat de catre aplicatia Ziarul Online. Nu raspundeti la acest e-mail.");
 	}

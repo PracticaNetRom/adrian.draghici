@@ -85,7 +85,6 @@
 										${category.description}</option>
 								</c:otherwise>
 							</c:choose>
-
 						</c:forEach>
 				</select></td>
 				<td><span class="error"

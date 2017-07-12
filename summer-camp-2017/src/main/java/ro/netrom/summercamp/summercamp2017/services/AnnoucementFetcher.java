@@ -68,7 +68,7 @@ public class AnnoucementFetcher {
 					+ announcementId;
 			RestTemplate restTemplate = new RestTemplate();
 			Annoucement result = restTemplate.getForObject(uri, Annoucement.class);
-			if (result != null && result.getId() != null && !result.isStatus()) {
+			if (result != null && result.getId() != null) {
 				System.out.println("announcement fetched!");
 				return result;
 			}
