@@ -2,6 +2,7 @@ package ro.netrom.summercamp.summercamp2017.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,16 @@ public class AnnouncementsController {
 
 	private ModelMap requests=new ModelMap();
 	
+	@Autowired
+	private ShowAnnouncementsEngine showAnnouncementsEngine;
+	
+	
 	@RequestMapping(value = { "announcement.html" }, method = RequestMethod.GET)
 	public String getAnnouncements(ModelMap model, HttpServletRequest request) {
 		model.addAttribute("title", "Anunt #" + request.getParameter("announcementId"));
 		model.addAttribute("content", "announcement.jsp");
 		model.addAttribute("announcementId", request.getParameter("announcementId"));
-		new ShowAnnouncementsEngine().showAnnouncement(model, request);
+		showAnnouncementsEngine.showAnnouncement(model, request);
 		if (request.getParameter("showComments") != null && request.getParameter("showComments").equals("true")) {
 			model.addAttribute("showComments", true);
 			new ShowCommentsEngine().showComments(model, request);

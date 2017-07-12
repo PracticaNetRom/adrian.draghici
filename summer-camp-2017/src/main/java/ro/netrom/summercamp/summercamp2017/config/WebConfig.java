@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = { "ro.netrom.summercamp.summercamp2017.controller" })
+@ComponentScan(basePackages = { "ro.netrom.summercamp.summercamp2017.controller","ro.netrom.summercamp.summercamp2017.engines","ro.netrom.summercamp.summercamp2017.services" })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override

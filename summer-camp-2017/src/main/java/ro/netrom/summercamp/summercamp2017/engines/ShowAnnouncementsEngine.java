@@ -1,10 +1,12 @@
 package ro.netrom.summercamp.summercamp2017.engines;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 
@@ -13,6 +15,7 @@ import ro.netrom.summercamp.summercamp2017.data.Category;
 import ro.netrom.summercamp.summercamp2017.services.AnnoucementFetcher;
 import ro.netrom.summercamp.summercamp2017.services.CategoryFetcher;
 
+@Component
 public class ShowAnnouncementsEngine {
 
 	private Annoucement[] announcements = null;
@@ -27,14 +30,14 @@ public class ShowAnnouncementsEngine {
 				&& target != null) {
 			switch (searchBy) {
 			case "1":
-				return target.getLocation() != null && target.getLocation().contains(search);
+				return target.getLocation() != null && target.getLocation().toLowerCase().contains(search.toLowerCase());
 			case "3":
-				return (target.getOwnerFirstName() != null && target.getOwnerFirstName().contains(search))
-						|| (target.getOwnerLastName() != null && target.getOwnerLastName().contains(search));
+				return (target.getOwnerFirstName() != null && target.getOwnerFirstName().toLowerCase().contains(search.toLowerCase()))
+						|| (target.getOwnerLastName() != null && target.getOwnerLastName().toLowerCase().contains(search.toLowerCase()));
 			case "4":
-				return target.getTitle() != null && target.getTitle().contains(search);
+				return target.getTitle() != null && target.getTitle().toLowerCase().contains(search.toLowerCase());
 			default:
-				return target.getContent() != null && target.getContent().contains(search);
+				return target.getContent() != null && target.getContent().toLowerCase().contains(search.toLowerCase());
 			}
 		}
 		return false;
@@ -59,21 +62,18 @@ public class ShowAnnouncementsEngine {
 					if (containsSearchKeywords(searchBy, search, annoucement)) {
 						if (selectedCategory != null && !selectedCategory.contentEquals("all")
 								&& !selectedCategory.contentEquals("")) {
-							if (annoucement.getCategoryName()!=null && annoucement.getCategoryName().contentEquals(selectedCategory)) {
+							if (annoucement.getCategoryName()!=null && annoucement.getCategoryName().toLowerCase().contentEquals(selectedCategory.toLowerCase())) {
 								annoucementsList.add(annoucement);
 							}
 						} else {
 							annoucementsList.add(annoucement);
-							model.addAttribute("selectedCategory", "all");
 						}
 					}
 				} else {
 					if (selectedCategory != null && !selectedCategory.contentEquals("all")
 							&& !selectedCategory.contentEquals("")) {
-						if (annoucement.getCategoryName()!=null && annoucement.getCategoryName().contentEquals(selectedCategory)) {
+						if (annoucement.getCategoryName()!=null && annoucement.getCategoryName().toLowerCase().contentEquals(selectedCategory.toLowerCase())) {
 							annoucementsList.add(annoucement);
-						} else {
-							model.addAttribute("selectedCategory", "all");
 						}
 					}
 				}

@@ -123,7 +123,7 @@ public class AddAnnoucementEngine {
 			model.addAttribute("annoucementContentError", "Continut obligatoriu!");
 			valid = false;
 		} else {
-			if (!Validators.isText(content, 4096)) {
+			if (!Validators.isText(content, 255)) {
 				model.addAttribute("annoucementContentError", "Continut invalid!");
 				model.addAttribute("annoucementContent", content);
 				valid = false;

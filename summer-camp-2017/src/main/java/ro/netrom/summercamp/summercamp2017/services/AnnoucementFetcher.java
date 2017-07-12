@@ -3,10 +3,12 @@ package ro.netrom.summercamp.summercamp2017.services;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import ro.netrom.summercamp.summercamp2017.data.Annoucement;
 
+@Service
 public class AnnoucementFetcher {
 
 	private static Annoucement[] getActiveAnnoucements(Annoucement[] annoucements) {

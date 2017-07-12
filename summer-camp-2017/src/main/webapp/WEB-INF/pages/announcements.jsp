@@ -58,11 +58,11 @@
 				<table bgcolor="Wheat" align="center" border="0">
 					<tr>
 						<td width="260" style="font-size: 15pt;">Afisati anunturile
-							din categoria:</td>
+							din categoria:<br></td>
 						<td><select id="category" name="category"
 							style="font-size: 15pt;">
 								<c:choose>
-									<c:when test="${selectedCategory=='all'}">
+									<c:when test="${selectedCategory.equals('all')}">
 										<option value="all" selected="selected">Toate</option>
 									</c:when>
 									<c:otherwise>
@@ -71,7 +71,7 @@
 								</c:choose>
 								<c:forEach var="category" items="${categories}" varStatus="loop">
 									<c:choose>
-										<c:when test="${category.name==selectedCategory}">
+										<c:when test="${category.name.equals(selectedCategory)}">
 											<option value="${category.name}" selected="selected">${category.name}</option>
 										</c:when>
 										<c:otherwise>
@@ -106,20 +106,20 @@
 						</tr>
 						<tr>
 							<td width=200>Titlu Anunt:</td>
-							<td width=200>${announcement.title}</td>
+							<td width=200><c:out value="${announcement.title}"/></td>
 						</tr>
 						<tr>
 							<td width=200>Data publicare Anunt:</td>
-							<td width=200>${announcement.createDate}</td>
+							<td width=200><c:out value="${announcement.createDate}"/></td>
 						</tr>
 						<tr>
 							<td width=200>Categorie Anunt:</td>
-							<td width=200>${announcement.categoryName},
-								${announcement.categoryDescription}</td>
+							<td width=200><c:out value="${announcement.categoryName}"/>,<c:out value="${announcement.categoryDescription}"/>
+								</td>
 						</tr>
 						<tr>
 							<td width=200>Publicat de:</td>
-							<td width=200>${announcement.ownerFirstName}&nbsp;${announcement.ownerLastName}</td>
+							<td width=200><c:out value="${announcement.ownerFirstName}"/>&nbsp;<c:out value="${announcement.ownerLastName}"/></td>
 						</tr>
 						<tr>
 							<td align="center" colspan="2">
@@ -172,8 +172,7 @@
 									name="search" type="hidden" value="${search}" /> <input
 									name="selectedCategory" type="hidden"
 									value="${selectedCategory}" /> <input name="pageNr"
-									type="hidden" value="${pageNr-1}" /><input name="pageNr"
-									type="hidden" value="${pageNr-1}" /> <input type="submit"
+									type="hidden" value="${pageNr+1}" /> <input type="submit"
 									id="nextBot"
 									style="font-size: 20pt; color: black; background-color: Orchid;"
 									value="Pagina urmatoare &#9658;">
